@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   data () {
@@ -19,24 +20,42 @@ export default {
       active: 0
     }
   },
-  computed: {
+  asyncComputed: {
     jobs () {
-      return [
-        {
-          status: 'Upcoming'
-        }
-      ]
-    },
+      return axios.get(this.$app_config.firebase.files.list)
+        .then((response) => {
+          return response.data.map((job) => {
+            if (job.RouteID === '17447') {
+              job.status = 'Upcoming'
+            } else if (job.RouteID === '17496') {
+              job.status = 'Done'
+            } else {
+              job.status = 'In progress'
+            }
+
+            return job
+          })
+        })
+    }
+  },
+  computed: {
+    // jobs () {
+    //   return [
+    //     {
+    //       status: 'Upcoming'
+    //     }
+    //   ]
+    // },
     statusList () {
       return {
         Upcoming: {
-          jobs: this.jobs.filter(job => job.status === 'Upcoming')
+          jobs: (this.jobs || []).filter(job => job.status === 'Upcoming')
         },
         'In progress': {
-          jobs: this.jobs.filter(job => job.status === 'In progress')
+          jobs: (this.jobs || []).filter(job => job.status === 'In progress')
         },
         Done: {
-          jobs: this.jobs.filter(job => job.status === 'Done')
+          jobs: (this.jobs || []).filter(job => job.status === 'Done')
         }
       }
     }
