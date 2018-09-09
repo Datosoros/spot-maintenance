@@ -43,6 +43,10 @@ export default {
   margin-bottom: 0;
 }
 
+.app-status-tabs .v-tabs__container {
+  height: auto;
+}
+
 .app-status-tabs--item > .v-tabs__item {
   display: block;
 }
@@ -54,11 +58,13 @@ export default {
 
 .app-status-tabs--count {
   font-size: 125%;
+  padding-top: 8px;
 }
 
 .app-status-tabs--title {
   text-transform: initial;
   font-weight: 400;
+  padding-bottom: 8px;
 }
 /* h1, h2 {
   font-weight: normal;
