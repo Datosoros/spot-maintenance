@@ -3,7 +3,7 @@
     <v-slide-y-transition mode="out-in">
       <v-tabs class="app-tabs app-status-tabs" v-model="active" color="cyan" fixed-tabs grow slider-color="orange">
         <v-tab class="app-status-tabs--item" v-for="(status, statusType) in statusList" :key="statusType">
-          <strong class="app-status-tabs--count">{{ status.count || '0' }}</strong>
+          <strong class="app-status-tabs--count">{{ status.jobs.length || '0' }}</strong>
           <span class="app-status-tabs--title">{{ status.title || statusType }}</span>
         </v-tab>
       </v-tabs>
@@ -20,16 +20,23 @@ export default {
     }
   },
   computed: {
+    jobs () {
+      return [
+        {
+          status: 'Upcoming'
+        }
+      ]
+    },
     statusList () {
       return {
         Upcoming: {
-          count: 5
+          jobs: this.jobs.filter(job => job.status === 'Upcoming')
         },
         'In progress': {
-          count: 2
+          jobs: this.jobs.filter(job => job.status === 'In progress')
         },
         Done: {
-          count: 10
+          jobs: this.jobs.filter(job => job.status === 'Done')
         }
       }
     }

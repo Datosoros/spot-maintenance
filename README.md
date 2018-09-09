@@ -29,3 +29,8 @@ npm run test:unit
 ```
 npm run test:e2e
 ```
+
+### Deploy
+```
+npm run deploy
+```
